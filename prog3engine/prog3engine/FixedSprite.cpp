@@ -5,7 +5,7 @@
 
 namespace gengine {
 
-	FixedSprite * FixedSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, std::string imgP) {
+	FixedSprite* FixedSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, std::string imgP) {
 		return new FixedSprite(eng, x, y, w, h, imgP);
 	}
 
