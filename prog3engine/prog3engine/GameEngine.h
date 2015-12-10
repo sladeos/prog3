@@ -10,10 +10,11 @@ namespace gengine {
 	class GameEngine
 	{
 	public:
-		GameEngine(std::string title, int x, int y, int w, int h);
+		GameEngine(std::string title, int x, int y, int w, int h, int fps);
 		void add(Sprite* sprite);
 		void run();
 		void loadLevel();
+		void setFPS(int newFPS);
 		SDL_Renderer* getRen() const;
 		~GameEngine();
 	private:

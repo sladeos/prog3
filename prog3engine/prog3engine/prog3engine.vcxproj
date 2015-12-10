@@ -68,7 +68,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\vs_dev_lib\SDL2-2.0.3\include;C:\vs_dev_lib\SDL2_image-2.0.0\include;C:\vs_dev_lib\SDL2_mixer-2.0.0\include;C:\vs_dev_lib\SDL2_ttf-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\vs_dev_lib\SDL2-2.0.3\lib\x86;C:\vs_dev_lib\SDL2_image-2.0.0\lib\x86;C:\vs_dev_lib\SDL2_mixer-2.0.0\lib\x86;C:\vs_dev_lib\SDL2_ttf-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
