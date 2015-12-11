@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include <string>
 #include <SDL.h>
+#include <vector>
 
 namespace gengine {
 	class ActiveSprite : public Sprite
@@ -12,7 +13,7 @@ namespace gengine {
 		static ActiveSprite* getInstance(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
 		~ActiveSprite();
 		void draw();
-		void tick();
+		void tick(std::vector <Sprite*>);
 		int const getX();
 		int const getY();
 		void setX(int x);
@@ -23,6 +24,7 @@ namespace gengine {
 		void setYpath(int newY);
 		void initSpriteSheet(int elementCount);
 		void addSpriteClip(int element, int x , int y, int w, int h);
+		void actionCollision();
 	protected:
 		ActiveSprite(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
 	private:

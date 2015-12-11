@@ -16,12 +16,14 @@ namespace gengine {
 		void loadLevel();
 		void setFPS(int newFPS);
 		SDL_Renderer* getRen() const;
+		void addRemoveSprite(Sprite*);
+		void removeSprite(Sprite*);
 		~GameEngine();
 	private:
 		friend class Sprite;
 		SDL_Window* win;
 		SDL_Renderer* ren;
-		std::vector<Sprite*> sprites;
+		std::vector<Sprite*> sprites, toBeRemoved;
 		int frameRate;
 	};
 }

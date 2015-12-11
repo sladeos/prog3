@@ -13,8 +13,8 @@ int main(int argc, char* argv[]) {
 	try {
 		GameEngine* ge = new GameEngine("Hej", 200, 200, 600, 1000, 5);
 		//FixedSprite* fs1 = FixedSprite::getInstance(ge, 100, 100, 300, 300, "C:/Users/slade/Pictures/Wut/1397288854346.png");
-		//ActiveSprite* as1 = ActiveSprite::getInstance(ge, 300, 300, 200, 200, 1,1, "C:/Users/slade/Pictures/Wut/1397288854346.png");
-		ActiveSprite* baller = ActiveSprite::getInstance(ge, 300, 300, 200, 300, 0, 0, "C:/Users/slade/Desktop/foo.png");
+		ActiveSprite* as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 5, 6, "C:/Users/slade/Pictures/Wut/1397288854346.png");
+		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -5, 0, "C:/Users/slade/Desktop/foo.png");
 		baller->initSpriteSheet(4);
 		baller->addSpriteClip(0, 0, 0, 64, 205);
 		baller->addSpriteClip(1, 64, 0, 64, 205);
