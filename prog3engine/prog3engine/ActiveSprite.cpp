@@ -3,7 +3,7 @@
 #include "SDL_image.h"
 #include <string>
 #include <SDL.h>
-
+#include<iostream>
 namespace gengine {
 
 	ActiveSprite* ActiveSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP)
@@ -35,6 +35,10 @@ namespace gengine {
 		rectSpriteArray[element].h = h;
 	}
 
+	void ActiveSprite::actionCollision()
+	{
+	}
+
 	ActiveSprite::ActiveSprite(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP) : Sprite(eng, x, y, w, h, imgP), x(x), y(y), w(w), h(h), xPath(pathX), yPath(pathY)
 	{
 		texture = IMG_LoadTexture(engine->getRen(), imgPath.c_str());
@@ -50,13 +54,21 @@ namespace gengine {
 			SDL_Rect* currentClip = &rectSpriteArray[frame];
 			frame++;
 
-		SDL_RenderCopy(engine->getRen(), texture, currentClip, &rect);
-		}else{
-		SDL_RenderCopy(engine->getRen(), texture, NULL, &rect);
+			SDL_RenderCopy(engine->getRen(), texture, currentClip, &rect);
+		}
+		else {
+			SDL_RenderCopy(engine->getRen(), texture, NULL, &rect);
 		}
 	}
 
-	void ActiveSprite::tick() {
+	void ActiveSprite::tick(std::vector<Sprite*> sprites) {
+		for (Sprite* s : sprites) {
+			if (s != this) {
+				if (checkCollision(&s->rect)) {
+					actionCollision();
+				}
+			}
+		}
 		x += xPath;
 		y += yPath;
 		rect = { getX(), getY(), getW(), getH() };
@@ -94,6 +106,7 @@ namespace gengine {
 
 	ActiveSprite::~ActiveSprite()
 	{
+		
 		delete rectSpriteArray;
 		SDL_DestroyTexture(texture);
 	}

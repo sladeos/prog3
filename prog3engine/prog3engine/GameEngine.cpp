@@ -1,6 +1,6 @@
 #include "GameEngine.h"
 #include <string>
-
+#include <algorithm>
 namespace gengine {
 	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS): frameRate(FPS) {
 		win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
@@ -37,14 +37,18 @@ namespace gengine {
 
 			SDL_RenderClear(ren);
 			for (Sprite* s : sprites){
-			s->tick();
+			s->tick(sprites);
 			s->draw();
 			}
 			SDL_RenderPresent(ren);
-
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0)
 				SDL_Delay(delay);
+			for (Sprite *s : toBeRemoved) {
+				removeSprite(s);
+			}
+			toBeRemoved.clear();
+
 
 		} // yttre while
 	}
@@ -56,6 +60,17 @@ namespace gengine {
 
 	SDL_Renderer* GameEngine::getRen() const {
 		return ren;
+	}
+
+	void GameEngine::addRemoveSprite(Sprite * removedSprite)
+	{
+		toBeRemoved.push_back(removedSprite);
+	}
+
+	void  GameEngine::removeSprite(Sprite *sprite)
+	{
+		sprites.erase(std::remove(sprites.begin(), sprites.end(), sprite), sprites.end());
+		delete sprite;
 	}
 
 	GameEngine::~GameEngine()
