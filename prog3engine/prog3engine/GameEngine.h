@@ -30,8 +30,6 @@ namespace gengine {
 		struct keyStateActions { SDL_Scancode key; void(*fPointer)(); };
 		std::vector<inputActions> trackedKeys;
 		std::vector<keyStateActions> trackedKeyStates;
-		struct moving { bool down; SDL_Keycode key; };
-		std::vector<moving> trackingMovement;
 		int frameRate;
 	};
 }

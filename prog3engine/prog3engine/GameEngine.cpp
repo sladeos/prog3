@@ -98,7 +98,6 @@ namespace gengine {
 	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)())
 	{
 		trackedKeys.push_back(inputActions{ eve, key, fPointer });
-		trackingMovement.push_back(moving{ false, key });
 		
 	}
 
