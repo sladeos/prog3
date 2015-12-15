@@ -19,6 +19,7 @@ namespace gengine {
 		void addRemoveSprite(Sprite*);
 		void removeSprite(Sprite*);
 		void trackKey(SDL_EventType, SDL_Keycode, void(*fPointer)());
+		void trackKeyState(SDL_Scancode, void(*fPointer)());
 		~GameEngine();
 	private:
 		friend class Sprite;
@@ -26,7 +27,11 @@ namespace gengine {
 		SDL_Renderer* ren;
 		std::vector<Sprite*> sprites, toBeRemoved;
 		struct inputActions { SDL_EventType eve; SDL_Keycode key; void(*fPointer)(); } ;
+		struct keyStateActions { SDL_Scancode key; void(*fPointer)(); };
 		std::vector<inputActions> trackedKeys;
+		std::vector<keyStateActions> trackedKeyStates;
+		struct moving { bool down; SDL_Keycode key; };
+		std::vector<moving> trackingMovement;
 		int frameRate;
 	};
 }

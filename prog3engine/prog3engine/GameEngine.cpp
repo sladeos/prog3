@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 #include <string>
 #include <algorithm>
+#include <iostream>
 namespace gengine {
 	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS): frameRate(FPS) {
 		win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
@@ -35,7 +36,6 @@ namespace gengine {
 				case SDL_MOUSEBUTTONUP:
 					for (inputActions k : trackedKeys) {
 						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
-						
 							k.fPointer();
 						}
 					}
@@ -44,9 +44,18 @@ namespace gengine {
 					// Saker som händer
 
 				} // switch
-			} // inre while
 
 			
+				
+
+			} // inre while
+
+			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+			for (keyStateActions k : trackedKeyStates) {
+				if (currentKeyStates[k.key]) {
+					k.fPointer();
+				}
+			}
 
 			SDL_RenderClear(ren);
 			for (Sprite* s : sprites){
@@ -89,6 +98,13 @@ namespace gengine {
 	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)())
 	{
 		trackedKeys.push_back(inputActions{ eve, key, fPointer });
+		trackingMovement.push_back(moving{ false, key });
+		
+	}
+
+	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)())
+	{
+		trackedKeyStates.push_back(keyStateActions{key, fPointer });
 	}
 
 	GameEngine::~GameEngine()
