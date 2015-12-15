@@ -17,10 +17,10 @@ namespace gengine {
 		void setFPS(int newFPS);
 		SDL_Renderer* getRen() const;
 		void addRemoveSprite(Sprite*);
-		void removeSprite(Sprite*);
 		void trackKey(SDL_EventType, SDL_Keycode, void(*fPointer)());
 		~GameEngine();
 	private:
+		void removeSprite(Sprite*);
 		friend class Sprite;
 		SDL_Window* win;
 		SDL_Renderer* ren;
