@@ -13,13 +13,13 @@ using namespace gengine;
 ActiveSprite* as1;
 
 void bitchtits1() {
-
 	as1->setYpath(-1);
-
-}
+	}
 void bitchtits11() {
 
 	as1->setYpath(0);
+
+	as1->setY(as1->getY() + 5);
 
 }
 
@@ -54,12 +54,20 @@ void bitchtits4() {
 void bitchtits44() {
 	as1->setXpath(0);
 
+
+	as1->setX(as1->getX() - 5);
+}
+
+void bitchtits4() {
+	
+	as1->setX(as1->getX() + 5);
 }
 
 int main(int argc, char* argv[]) {
 
 	try {
 		GameEngine* ge = new GameEngine("Hej", 200, 200, 600, 1000, 60);
+
 		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "A:/Bilder/gubbe.bmp");
 		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "A:/Bilder/gubbe.bmp");
 
