@@ -25,6 +25,7 @@ namespace gengine {
 	private:
 		friend class FixedSprite;
 		friend class ActiveSprite;
+		friend class TextSprite;
 		Sprite(const Sprite&) = delete;
 		const Sprite& operator=(const Sprite&) = delete;
 	};

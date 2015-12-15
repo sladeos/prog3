@@ -18,7 +18,7 @@ namespace gengine {
 
 	void ActiveSprite::setYpath(int newY)
 	{
-		newY = yPath;
+		yPath = newY;
 	}
 
 	void ActiveSprite::initSpriteSheet(int elementCount)

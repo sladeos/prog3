@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 #include <string>
 #include <algorithm>
+#include <SDL_ttf.h>
 namespace gengine {
 	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS): frameRate(FPS) {
 		win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
@@ -39,11 +40,16 @@ namespace gengine {
 							k.fPointer();
 						}
 					}
+
 				; break;
 				
 					// Saker som händer
 
 				} // switch
+
+
+
+
 			} // inre while
 
 			
@@ -53,6 +59,7 @@ namespace gengine {
 			s->tick(sprites);
 			s->draw();
 			}
+
 			SDL_RenderPresent(ren);
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0)
