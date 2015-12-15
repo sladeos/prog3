@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <stdexcept>
 #include <string>
+#include <SDL_ttf.h>
 
 namespace gengine {
 
@@ -9,6 +10,7 @@ namespace gengine {
 
 	System::System()
 	{
+		TTF_Init();
 		if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 			throw std::runtime_error(std::string("Fel: ") + SDL_GetError());
 	}
@@ -17,6 +19,7 @@ namespace gengine {
 	System::~System()
 	{
 		SDL_Quit();
+		TTF_Quit();
 	}
 
 }

@@ -1,9 +1,10 @@
 #include "GameEngine.h"
 #include <string>
 #include <algorithm>
-#include <iostream>
+#include <SDL_ttf.h>
+
 namespace gengine {
-	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS): frameRate(FPS) {
+	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS) : frameRate(FPS) {
 		win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
 		ren = SDL_CreateRenderer(win, -1, 0);
 	}
@@ -17,7 +18,7 @@ namespace gengine {
 	void GameEngine::run() {
 		SDL_RenderClear(ren);
 		for (Sprite* s : sprites)
-		s->draw();
+			s->draw();
 		SDL_RenderPresent(ren);
 		bool goOn = true;
 		int frame = 0;
@@ -39,15 +40,12 @@ namespace gengine {
 							k.fPointer();
 						}
 					}
-				; break;
-				
+
+					; break;
+
 					// Saker som händer
 
 				} // switch
-
-			
-				
-
 			} // inre while
 
 			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
@@ -58,10 +56,11 @@ namespace gengine {
 			}
 
 			SDL_RenderClear(ren);
-			for (Sprite* s : sprites){
-			s->tick(sprites);
-			s->draw();
+			for (Sprite* s : sprites) {
+				s->tick(sprites);
+				s->draw();
 			}
+
 			SDL_RenderPresent(ren);
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0)
@@ -98,12 +97,12 @@ namespace gengine {
 	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)())
 	{
 		trackedKeys.push_back(inputActions{ eve, key, fPointer });
-		
+
 	}
 
 	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)())
 	{
-		trackedKeyStates.push_back(keyStateActions{key, fPointer });
+		trackedKeyStates.push_back(keyStateActions{ key, fPointer });
 	}
 
 	GameEngine::~GameEngine()
