@@ -29,11 +29,24 @@ namespace gengine {
 			while (SDL_PollEvent(&eve)) {
 				switch (eve.type) {
 				case SDL_QUIT: goOn = false; break;
-
+				case SDL_KEYUP:
+				case SDL_KEYDOWN:
+				case SDL_MOUSEBUTTONDOWN:
+				case SDL_MOUSEBUTTONUP:
+					for (inputActions k : trackedKeys) {
+						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
+						
+							k.fPointer();
+						}
+					}
+				; break;
+				
 					// Saker som händer
 
 				} // switch
 			} // inre while
+
+			
 
 			SDL_RenderClear(ren);
 			for (Sprite* s : sprites){
@@ -71,6 +84,11 @@ namespace gengine {
 	{
 		sprites.erase(std::remove(sprites.begin(), sprites.end(), sprite), sprites.end());
 		delete sprite;
+	}
+
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)())
+	{
+		trackedKeys.push_back(inputActions{ eve, key, fPointer });
 	}
 
 	GameEngine::~GameEngine()

@@ -11,12 +11,13 @@ namespace gengine {
 		void draw();
 		void tick(std::vector <Sprite*>);
 		static FixedSprite* getInstance(GameEngine* eng, int x, int y, int w, int h, std::string imgP);
-		void actionCollision();
+		virtual void actionCollision();
 		~FixedSprite();
 	protected:
 		FixedSprite(GameEngine* eng, int x, int y, int w, int h, std::string imgP);
-	private:
 		SDL_Texture* texture;
+	private:
+	
 
 	};
 }
