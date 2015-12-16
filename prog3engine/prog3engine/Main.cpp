@@ -12,72 +12,29 @@ using namespace gengine;
 
 ActiveSprite* as1;
 
-void bitchtits1() {
-	as1->setYpath(-1);
-	}
-void bitchtits11() {
-
-	as1->setYpath(0);
-
-	as1->setY(as1->getY() + 5);
-
-}
-
-
-void bitchtits2() {
-
-	as1->setYpath(1);
-
-}
-
-void bitchtits22() {
-
-	as1->setYpath(0);
-
-}
-
-void bitchtits3() {
-
-	as1->setXpath(-1);
-
-}
-
-void bitchtits33() {
-	as1->setXpath(0);
-}
-
-void bitchtits4() {
-	as1->setXpath(1);
-
-}
-
-void bitchtits44() {
-	as1->setXpath(0);
-
-
-	as1->setX(as1->getX() - 5);
-}
-
-void bitchtits4() {
+void bitchtits1(SDL_Event eve) {
 	
-	as1->setX(as1->getX() + 5);
-}
+		
+	}
+
+
+
 
 int main(int argc, char* argv[]) {
 
 	try {
 		GameEngine* ge = new GameEngine("Hej", 200, 200, 600, 1000, 60);
 
-		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "A:/Bilder/gubbe.bmp");
-		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "A:/Bilder/gubbe.bmp");
+		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "C:/Users/slade/Pictures/wut/1406247020421.jpg");
+		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "C:/Users/slade/Pictures/wut/84081257.jpg");
 
 		SDL_Color textColor = { 150, 133, 255, 255};
 		TTF_Font *gFont = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 24);
 
-		TextSprite* text = TextSprite::getInstance(ge, 300, 300, 200, 300, textColor, gFont, "Det brinner");
+		TextSprite* text = TextSprite::getInstance(ge, 300, 300, 200, 300, textColor, gFont, "D", true);
 
 	
-		ge->trackKey(SDL_KEYDOWN, SDLK_UP, bitchtits1);
+		ge->trackKey(SDL_MOUSEMOTION, false, bitchtits1);
 		ge->trackKey(SDL_KEYUP, SDLK_UP, bitchtits11);
 		ge->trackKey(SDL_KEYDOWN, SDLK_DOWN, bitchtits2);
 		ge->trackKey(SDL_KEYUP, SDLK_DOWN, bitchtits22);

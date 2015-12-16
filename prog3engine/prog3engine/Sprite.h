@@ -15,6 +15,7 @@ namespace gengine {
 		virtual void draw() = 0;
 		virtual void tick(std::vector<Sprite*>) {}
 		virtual ~Sprite();
+		virtual const SDL_Rect getRect();
 	protected:
 		Sprite(GameEngine* eng, int x, int y, int w, int h, std::string imgP);
 		SDL_Rect rect;
