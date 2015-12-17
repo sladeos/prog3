@@ -52,7 +52,7 @@ namespace gengine {
 		return true;
 	}
 
-	const SDL_Rect Sprite::getRect()
+	 SDL_Rect Sprite::getRect() const
 	{
 		return rect;
 	}

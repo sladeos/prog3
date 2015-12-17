@@ -74,12 +74,12 @@ namespace gengine {
 		rect = { getX(), getY(), getW(), getH() };
 	}
 
-	const int ActiveSprite::getX()
+	int ActiveSprite::getX() const
 	{
 		return x;
 	}
 
-	const int ActiveSprite::getY()
+	int ActiveSprite::getY() const
 	{
 		return y;
 	}
@@ -94,19 +94,19 @@ namespace gengine {
 		y = newY;
 	}
 
-	const int ActiveSprite::getW()
+	int ActiveSprite::getW() const
 	{
 		return w;
 	}
 
-	const int ActiveSprite::getH()
+	int ActiveSprite::getH() const
 	{
 		return h;
 	}
 
 	ActiveSprite::~ActiveSprite()
 	{
-		
+
 		delete rectSpriteArray;
 		SDL_DestroyTexture(texture);
 	}

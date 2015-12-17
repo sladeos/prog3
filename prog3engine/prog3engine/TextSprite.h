@@ -13,10 +13,10 @@ namespace gengine {
 	public:
 		static TextSprite* getInstance(GameEngine* eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable);
 		void setText(std::string newText);
-		const std::string getText();
+		std::string getText() const;
 		void draw();
 		~TextSprite();
-		const bool getEditStatus();
+		bool getEditStatus() const;
 		void setEditStatus(bool);
 	protected:
 		SDL_Texture* texture;

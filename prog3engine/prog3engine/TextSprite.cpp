@@ -24,7 +24,7 @@ namespace gengine {
 		text = newText;
 	}
 
-	const std::string TextSprite::getText()
+	std::string TextSprite::getText() const
 	{
 		return text;
 	}
@@ -44,7 +44,7 @@ namespace gengine {
 		SDL_DestroyTexture(texture);
 	}
 
-	const bool TextSprite::getEditStatus()
+	bool TextSprite::getEditStatus() const
 	{
 		return editable;
 	}

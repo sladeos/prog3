@@ -14,16 +14,16 @@ namespace gengine {
 		~ActiveSprite();
 		void draw();
 		void tick(std::vector <Sprite*>);
-		const int getX();
-		const int getY();
+		int getX() const;
+		int getY() const;
 		void setX(int x);
 		void setY(int y);
-		const int getW();
-		const int getH();
+		int getW() const;
+		int getH() const;
 		void setXpath(int newX);
 		void setYpath(int newY);
 		void initSpriteSheet(int elementCount);
-		void addSpriteClip(int element, int x , int y, int w, int h);
+		void addSpriteClip(int element, int x, int y, int w, int h);
 		virtual void actionCollision();
 	protected:
 		SDL_Texture* texture;
@@ -33,7 +33,7 @@ namespace gengine {
 		bool spriteSheet = false;
 		ActiveSprite(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
 	private:
-	
+
 	};
 }
 
