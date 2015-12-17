@@ -27,6 +27,8 @@ int main(int argc, char* argv[]) {
 
 		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "A:/Bilder/gubbe.bmp");
 		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "A:/Bilder/gubbe.bmp");
+		//as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "C:/Users/slade/Pictures/wut/1406247020421.jpg");
+		//ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "C:/Users/slade/Pictures/wut/84081257.jpg");
 
 		/*
 		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "Sladenånting");

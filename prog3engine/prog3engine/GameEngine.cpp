@@ -22,7 +22,6 @@ namespace gengine {
 			s->draw();
 		SDL_RenderPresent(ren);
 		bool goOn = true;
-
 		int frame = 0;
 		const int tickInterval = 1000 / frameRate;
 		Uint32 nextTick;
@@ -44,8 +43,7 @@ namespace gengine {
 					}
 				case SDL_KEYUP:
 				case SDL_KEYDOWN:
-				//case SDL_MOUSEMOTION:
-					//	std::cout << eve.key.keysym.sym << std::endl;
+				case SDL_MOUSEMOTION:
 				case SDL_MOUSEBUTTONUP:
 					for (inputActions k : trackedKeys) {
 						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
@@ -54,32 +52,31 @@ namespace gengine {
 						; break;
 					} // switch
 				} // inre while
-
-				const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-				for (keyStateActions k : trackedKeyStates) {
-					if (currentKeyStates[k.key]) {
-						k.fPointer();
-					}
+			}
+			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+			for (keyStateActions k : trackedKeyStates) {
+				if (currentKeyStates[k.key]) {
+					k.fPointer();
 				}
+			}
 
-				SDL_RenderClear(ren);
-				for (Sprite* s : sprites) {
-					s->tick(sprites);
-					s->draw();
-				}
+			SDL_RenderClear(ren);
+			for (Sprite* s : sprites) {
+				s->tick(sprites);
+				s->draw();
+			}
 
-				SDL_RenderPresent(ren);
-				delay = nextTick - SDL_GetTicks();
-				if (delay > 0)
-					SDL_Delay(delay);
-				for (Sprite *s : toBeRemoved) {
-					removeSprite(s);
-				}
-				toBeRemoved.clear();
+			SDL_RenderPresent(ren);
+			delay = nextTick - SDL_GetTicks();
+			if (delay > 0)
+				SDL_Delay(delay);
+			for (Sprite *s : toBeRemoved) {
+				removeSprite(s);
+			}
+			toBeRemoved.clear();
 
 
-			} // yttre while
-		}
+		} // yttre while
 	}
 
 	void GameEngine::setFPS(int newFPS) {
@@ -131,7 +128,6 @@ namespace gengine {
 				else if (e.type == SDL_KEYDOWN) {
 					if (e.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0) {
 						inputText.pop_back();
-
 					}
 					else if (e.key.keysym.sym == SDLK_RETURN) {
 						quit = true;
@@ -153,12 +149,8 @@ namespace gengine {
 					if (!((e.text.text[0] == 'c' || e.text.text[0] == 'C') && (e.text.text[0] == 'v' || e.text.text[0] == 'V') && SDL_GetModState() & KMOD_CTRL))
 					{
 						inputText += e.text.text;
-
-						//Glöm inte att ta bort denna
-						std::cout << inputText << std::endl;
 					}
 				}
-
 			}
 			tSprite.setText(inputText);
 			SDL_RenderClear(ren);
@@ -172,9 +164,7 @@ namespace gengine {
 			if (delay > 0)
 				SDL_Delay(delay);
 		}//yttre while
-
 	}
-
 	GameEngine::~GameEngine()
 	{
 		SDL_DestroyRenderer(ren);
