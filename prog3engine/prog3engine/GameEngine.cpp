@@ -44,7 +44,7 @@ namespace gengine {
 					}
 				case SDL_KEYUP:
 				case SDL_KEYDOWN:
-				case SDL_MOUSEMOTION:
+				//case SDL_MOUSEMOTION:
 					//	std::cout << eve.key.keysym.sym << std::endl;
 				case SDL_MOUSEBUTTONUP:
 					for (inputActions k : trackedKeys) {
