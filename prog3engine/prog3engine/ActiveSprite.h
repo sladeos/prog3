@@ -14,12 +14,12 @@ namespace gengine {
 		~ActiveSprite();
 		void draw();
 		void tick(std::vector <Sprite*>);
-		int const getX();
-		int const getY();
+		const int getX();
+		const int getY();
 		void setX(int x);
 		void setY(int y);
-		int const getW();
-		int getH();
+		const int getW();
+		const int getH();
 		void setXpath(int newX);
 		void setYpath(int newY);
 		void initSpriteSheet(int elementCount);
