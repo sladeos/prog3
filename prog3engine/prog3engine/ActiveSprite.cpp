@@ -21,6 +21,8 @@ namespace gengine {
 		yPath = newY;
 	}
 
+
+
 	void ActiveSprite::initSpriteSheet(int elementCount)
 	{
 		rectSpriteArray = new SDL_Rect[elementCount];

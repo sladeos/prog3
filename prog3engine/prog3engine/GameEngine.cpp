@@ -49,10 +49,13 @@ namespace gengine {
 						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
 							k.fPointer(eve);
 						}
+					}
+					
+
 						; break;
 					} // switch
 				} // inre while
-			}
+			
 			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 			for (keyStateActions k : trackedKeyStates) {
 				if (currentKeyStates[k.key]) {
@@ -99,7 +102,12 @@ namespace gengine {
 
 	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)(SDL_Event)) {
 		trackedKeys.push_back(inputActions{ eve, key, fPointer });
+	}
 
+	template<typename TYPE>
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, TYPE * objP, void TYPE::memP())
+	{
+		memberTrackedKeys.push_back(inputActions{ eve, key, objP, memP });
 	}
 
 	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)()) {
