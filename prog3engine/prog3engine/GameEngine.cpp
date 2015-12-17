@@ -11,8 +11,7 @@ namespace gengine {
 		ren = SDL_CreateRenderer(win, -1, 0);
 	}
 
-	// (Eng) Change to shared pointer!!!
-	// (SWE) Ändra till delad pek!!!
+	// Ändra till delad pek!!!
 	void GameEngine::add(Sprite* sprite) {
 		sprites.push_back(sprite);
 	}
@@ -46,44 +45,44 @@ namespace gengine {
 				case SDL_KEYUP:
 				case SDL_KEYDOWN:
 				case SDL_MOUSEMOTION:
-					std::cout << eve.key.keysym.sym << std::endl;
+					//	std::cout << eve.key.keysym.sym << std::endl;
 				case SDL_MOUSEBUTTONUP:
 					for (inputActions k : trackedKeys) {
 						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
 							k.fPointer(eve);
 						}
-					; break;
-				} // switch
-			} // inre while
+						; break;
+					} // switch
+				} // inre while
 
-			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-			for (keyStateActions k : trackedKeyStates) {
-				if (currentKeyStates[k.key]) {
-					k.fPointer();
+				const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+				for (keyStateActions k : trackedKeyStates) {
+					if (currentKeyStates[k.key]) {
+						k.fPointer();
+					}
 				}
-			}
 
-			SDL_RenderClear(ren);
-			for (Sprite* s : sprites) {
-				s->tick(sprites);
-				s->draw();
-			}
+				SDL_RenderClear(ren);
+				for (Sprite* s : sprites) {
+					s->tick(sprites);
+					s->draw();
+				}
 
-			SDL_RenderPresent(ren);
-			delay = nextTick - SDL_GetTicks();
-			if (delay > 0)
-				SDL_Delay(delay);
-			for (Sprite *s : toBeRemoved) {
-				removeSprite(s);
-			}
-			toBeRemoved.clear();
+				SDL_RenderPresent(ren);
+				delay = nextTick - SDL_GetTicks();
+				if (delay > 0)
+					SDL_Delay(delay);
+				for (Sprite *s : toBeRemoved) {
+					removeSprite(s);
+				}
+				toBeRemoved.clear();
 
 
-		} // yttre while
+			} // yttre while
+		}
 	}
 
-	void GameEngine::setFPS(int newFPS)
-	{
+	void GameEngine::setFPS(int newFPS) {
 		frameRate = newFPS;
 	}
 
@@ -91,35 +90,26 @@ namespace gengine {
 		return ren;
 	}
 
-	void GameEngine::addRemoveSprite(Sprite * removedSprite)
-	{
+	void GameEngine::addRemoveSprite(Sprite * removedSprite) {
 		toBeRemoved.push_back(removedSprite);
 	}
 
-	void  GameEngine::removeSprite(Sprite *sprite)
-	{
+	void  GameEngine::removeSprite(Sprite *sprite) {
 		sprites.erase(std::remove(sprites.begin(), sprites.end(), sprite), sprites.end());
 		delete sprite;
 		sprite = NULL;
 	}
 
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)(SDL_Event))
-	{
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)(SDL_Event)) {
 		trackedKeys.push_back(inputActions{ eve, key, fPointer });
 
 	}
 
-	void GameEngine::trackKey(SDL_EventType, SDL_Keycode, void(*fPointer)(SDL_Event))
-	{
-	}
-
-	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)())
-	{
+	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)()) {
 		trackedKeyStates.push_back(keyStateActions{ key, fPointer });
 	}
 
-	void GameEngine::handleTextInput(TextSprite& tSprite)
-	{
+	void GameEngine::handleTextInput(TextSprite& tSprite) {
 		SDL_StartTextInput();
 		bool quit = false;
 		SDL_Event e;
@@ -164,6 +154,7 @@ namespace gengine {
 					{
 						inputText += e.text.text;
 
+						//Glöm inte att ta bort denna
 						std::cout << inputText << std::endl;
 					}
 				}

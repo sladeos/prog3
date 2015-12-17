@@ -74,12 +74,12 @@ namespace gengine {
 		rect = { getX(), getY(), getW(), getH() };
 	}
 
-	int const ActiveSprite::getX()
+	const int ActiveSprite::getX()
 	{
 		return x;
 	}
 
-	int const ActiveSprite::getY()
+	const int ActiveSprite::getY()
 	{
 		return y;
 	}
@@ -94,12 +94,12 @@ namespace gengine {
 		y = newY;
 	}
 
-	int const ActiveSprite::getW()
+	const int ActiveSprite::getW()
 	{
 		return w;
 	}
 
-	int ActiveSprite::getH()
+	const int ActiveSprite::getH()
 	{
 		return h;
 	}
