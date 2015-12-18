@@ -45,11 +45,18 @@ namespace gengine {
 				case SDL_KEYDOWN:
 				case SDL_MOUSEMOTION:
 				case SDL_MOUSEBUTTONUP:
-					for (inputActions k : trackedKeys) {
-						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
-							k.fPointer(eve);
-						}
+					std::pair<std::map<SDL_Keycode, std::map<SDL_EventType, std::function<void(SDL_Event)>>>::iterator, std::map<SDL_Keycode, std::map<SDL_EventType, std::function<void(SDL_Event)>>>::iterator> ret;
+					ret = trackedKeys.equal_range(eve.key.keysym.sym);
+					std::cout << ret.first->first << std::endl;
+
+					std::map<SDL_EventType, std::function<void(SDL_Event)>> test = ret.first->second;
+					for (auto iter : test) {
+						std::cout << iter.first << std::endl;
+						
 					}
+					
+
+					
 					
 
 						; break;
@@ -100,15 +107,17 @@ namespace gengine {
 		sprite = NULL;
 	}
 
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)(SDL_Event)) {
-		trackedKeys.push_back(inputActions{ eve, key, fPointer });
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void(SDL_Event)> func) {
+
+		std::map<char, int > chInt;
+		chInt.insert(std::pair<char, int>('a', 5));
+
+		std::map<SDL_EventType, std::function<void(SDL_Event)> > eveMap;
+		eveMap.insert(std::make_pair(eve, func));
+		trackedKeys.insert(std::make_pair(key, eveMap));
 	}
 
-	template<typename TYPE>
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, TYPE * objP, void TYPE::memP())
-	{
-		memberTrackedKeys.push_back(inputActions{ eve, key, objP, memP });
-	}
+	
 
 	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)()) {
 		trackedKeyStates.push_back(keyStateActions{ key, fPointer });

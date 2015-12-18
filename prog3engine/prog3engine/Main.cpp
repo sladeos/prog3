@@ -13,7 +13,7 @@ using namespace gengine;
 ActiveSprite* as1;
 
 void bitchtits1(SDL_Event eve) {
-	
+	as1->setXpath(5);
 }
 
 
@@ -37,9 +37,7 @@ int main(int argc, char* argv[]) {
 		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "Sebbenånting");
 		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "A:/Bilder/gubbe.bmp");
 		*/
-		int(ActiveSprite::*mpek)();
-		mpek = as1->draw;
-		ge->trackKey(SDL_KEYDOWN, SDLK_DOWN, as1, as1->draw);
+
 
 
 
@@ -48,12 +46,13 @@ int main(int argc, char* argv[]) {
 
 		TextSprite* text = TextSprite::getInstance(ge, 300, 300, 200, 300, textColor, gFont, "D", true);
 
+		
+		ge->trackKey(SDL_KEYUP, SDLK_UP, bitchtits1);
+		ge->trackKey(SDL_KEYDOWN, SDLK_DOWN, bitchtits1);
 		/*
-		ge->trackKey(SDL_MOUSEMOTION, false, bitchtits1);
-		ge->trackKey(SDL_KEYUP, SDLK_UP, bitchtits11);
-		ge->trackKey(SDL_KEYDOWN, SDLK_DOWN, bitchtits2);
 		ge->trackKey(SDL_KEYUP, SDLK_DOWN, bitchtits22);
 		ge->trackKey(SDL_KEYDOWN, SDLK_LEFT, bitchtits3);
+		ge->trackKey(SDL_MOUSEMOTION, false, bitchtits1);
 		ge->trackKey(SDL_KEYUP, SDLK_LEFT, bitchtits33);
 		ge->trackKey(SDL_KEYDOWN, SDLK_RIGHT, bitchtits4);
 		ge->trackKey(SDL_KEYUP, SDLK_RIGHT, bitchtits44);
