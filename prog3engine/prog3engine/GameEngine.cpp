@@ -43,23 +43,21 @@ namespace gengine {
 					}
 				case SDL_KEYUP:
 				case SDL_KEYDOWN:
-				case SDL_MOUSEMOTION:
-				case SDL_MOUSEBUTTONUP:
 					std::pair<std::map<SDL_Keycode, std::map<SDL_EventType, std::function<void(SDL_Event)>>>::iterator, std::map<SDL_Keycode, std::map<SDL_EventType, std::function<void(SDL_Event)>>>::iterator> ret;
 					ret = trackedKeys.equal_range(eve.key.keysym.sym);
-					std::cout << ret.first->first << std::endl;
+					if (ret.first->first == eve.key.keysym.sym) {
+						std::map<SDL_EventType, std::function<void(SDL_Event)>> test = ret.first->second;
+						for (auto iter : test) {
+							if (iter.first == eve.type) {
+								iter.second(eve);
+								
+							}
 
-					std::map<SDL_EventType, std::function<void(SDL_Event)>> test = ret.first->second;
-					for (auto iter : test) {
-						std::cout << iter.first << std::endl;
-						
+						}
 					}
-					
+					; break;
 
 					
-					
-
-						; break;
 					} // switch
 				} // inre while
 			
@@ -182,6 +180,12 @@ namespace gengine {
 				SDL_Delay(delay);
 		}//yttre while
 	}
+
+	/*void GameEngine::setMemberFunc(std::function<int(ActiveSprite)> memF)
+	{
+		memberFunc = memF;
+	}
+	*/
 	GameEngine::~GameEngine()
 	{
 		SDL_DestroyRenderer(ren);

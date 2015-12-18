@@ -46,9 +46,11 @@ int main(int argc, char* argv[]) {
 
 		TextSprite* text = TextSprite::getInstance(ge, 300, 300, 200, 300, textColor, gFont, "D", true);
 
-		
+
+		//ge->setMemberFunc(&ActiveSprite::getH);
 		ge->trackKey(SDL_KEYUP, SDLK_UP, bitchtits1);
 		ge->trackKey(SDL_KEYDOWN, SDLK_DOWN, bitchtits1);
+		
 		/*
 		ge->trackKey(SDL_KEYUP, SDLK_DOWN, bitchtits22);
 		ge->trackKey(SDL_KEYDOWN, SDLK_LEFT, bitchtits3);
