@@ -6,7 +6,7 @@
 
 
 namespace gengine {
-	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS) : frameRate(FPS) {
+	GameEngine::GameEngine(std::string title, int x, int y, int w, int h, int FPS) : frameRate(FPS), w(w), h(h) {
 		win = SDL_CreateWindow(title.c_str(), x, y, w, h, 0);
 		ren = SDL_CreateRenderer(win, -1, 0);
 	}
@@ -45,12 +45,12 @@ namespace gengine {
 				case SDL_KEYDOWN:
 					auto it = trackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
 					if (it != trackedKeys.end()) {
-						it->second();
+						it->second(eve);
 					}
 
 					auto iter = memberTrackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
 					if (iter != memberTrackedKeys.end()) {
-						iter->second();
+						iter->second(eve);
 					}
 					; break;
 
@@ -61,7 +61,7 @@ namespace gengine {
 			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 			for (auto iter = trackedKeyStates.cbegin(); iter != trackedKeyStates.cend(); ++iter) {
 				if (currentKeyStates[iter->first])
-					iter->second();
+					iter->second(eve);
 			}
 
 			SDL_RenderClear(ren);
@@ -79,7 +79,20 @@ namespace gengine {
 			}
 			toBeRemoved.clear();
 
+			for (std::function<void(void)> func : trackedEvents) {
+				func();
+			}
 		} // yttre while
+	}
+
+	void GameEngine::loadLevel(Level *level)
+	{
+		for (Sprite* s : sprites) {
+			delete s;
+		}
+		sprites.clear();
+		sprites = level->getSprites();
+		
 	}
 
 	void GameEngine::setFPS(int newFPS) {
@@ -100,11 +113,16 @@ namespace gengine {
 		sprite = NULL;
 	}
 
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void()> func) {
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void(SDL_Event)> func) {
 		trackedKeys.insert(std::make_pair(std::make_pair(eve, key), func));
 	}
 
-	void GameEngine::trackKeyState(SDL_Scancode key, std::function<void(void)> func) {
+	void GameEngine::trackEvent(std::function<void(void)> func)
+	{
+		trackedEvents.push_back(func);
+	}
+
+	void GameEngine::trackKeyState(SDL_Scancode key, std::function<void(SDL_Event)> func) {
 		trackedKeyStates.insert(std::make_pair(key, func));
 	}
 
@@ -168,6 +186,21 @@ namespace gengine {
 		}//yttre while
 	}
 
+	const int GameEngine::getW() const
+	{
+		return w;
+	}
+
+
+	const int GameEngine::getH() const
+	{
+		return h;
+	}
+
+	std::vector<Sprite*> GameEngine::getSprites() const
+	{
+		return sprites;
+	}
 
 	GameEngine::~GameEngine()
 	{

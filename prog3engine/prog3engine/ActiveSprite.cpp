@@ -21,13 +21,6 @@ namespace gengine {
 		yPath = newY;
 	}
 
-	void ActiveSprite::printShit()
-	{
-		std::cout << "WORKS " << getX() << std::endl;
-	}
-
-
-
 	void ActiveSprite::initSpriteSheet(int elementCount)
 	{
 		rectSpriteArray = new SDL_Rect[elementCount];

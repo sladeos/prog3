@@ -7,35 +7,46 @@
 #include "FixedSprite.h"
 #include "ActiveSprite.h"
 #include "TextSprite.h"
+#include "Level.h"
 using namespace std;
 using namespace gengine;
 
 ActiveSprite* as1;
-
-void bitchtits1() {
+GameEngine* ge;
+void bitchtits1(SDL_Event e) {
 	std::cout << "bitchtits1";
-
 }
 
 
-void leftFunc() {
+void leftFunc(SDL_Event e) {
+
 	int x = as1->getX();
 	as1->setX(x - 3);
 }
 
-void rightFunc() {
+void rightFunc(SDL_Event e) {
 	int x = as1->getX();
 	as1->setX(x + 3);
 }
 
-void upFunc() {
+void upFunc(SDL_Event e) {
 	int y = as1->getY();
 	as1->setY(y - 3);
 }
 
-void downFunc() {
+void downFunc(SDL_Event e) {
 	int y = as1->getY();
 	as1->setY(y + 3);
+}
+
+void loadALevel(SDL_Event e) {
+	ge->loadLevel(Level::getInstance(ge, "C:/Users/slade/Pictures/wut/1388836944945.jpg"));
+}
+
+void checkLevel() {
+	if (as1->getY() > 250) {
+		ge->loadLevel(Level::getInstance(ge, "C:/Users/slade/Pictures/wut/1388066343959.jpg"));
+	}
 }
 
 
@@ -44,39 +55,43 @@ void downFunc() {
 int main(int argc, char* argv[]) {
 
 	try {
-		GameEngine* ge = new GameEngine("Hej", 200, 200, 600, 1000, 60);
+		
+		ge = new GameEngine("Hej", 200, 200, 600, 1000, 60);
 
 
-		//as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "C:/images/gubbe.bmp");
-		//ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "C:/images/bg.bmp");
+
+
+
 		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "C:/Users/slade/Pictures/wut/1406247020421.jpg");
 		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "C:/Users/slade/Pictures/wut/84081257.jpg");
-
-		/*
-		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "Sladenånting");
-		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "A:/Bilder/gubbe.bmp");
-
-		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "Sebbenånting");
-		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "A:/Bilder/gubbe.bmp");
-		*/
-
-
-
+		
 
 		SDL_Color textColor = { 150, 133, 255, 255 };
 		TTF_Font *gFont = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 24);
 		TextSprite* text = TextSprite::getInstance(ge, 300, 300, 200, 300, textColor, gFont, "D", true);
+		Level *level = Level::getInstance(ge,  "C:/Users/slade/Pictures/rofl.jpg");
 
+		level->addSprite(baller);
+		level->addSprite(text);
+		std::vector<Sprite*> testSprites;
+		testSprites.push_back(as1);
+		testSprites.push_back(ActiveSprite::getInstance(ge, 100, 200, 20, 50, 1, 0, "C:/Users/slade/Pictures/wut/1388683676117.jpg"));
+		testSprites.push_back(ActiveSprite::getInstance(ge, 200, 600, 350, 250, 1, 0, "C:/Users/slade/Pictures/wut/1382175595518.jpg"));
+
+		level->addSprites(testSprites);
+		ge->loadLevel(level);
 
 
 		//Free function register
-		ge->trackKey(SDL_KEYDOWN, SDLK_F7, bitchtits1);
+		ge->trackKey(SDL_KEYDOWN, SDLK_F7, loadALevel);
 
-		//Member Pointer register
+		ge->trackEvent(checkLevel);
+		/*
+		Member Pointer register
 		void(ActiveSprite::*mPek)();
 		mPek = &ActiveSprite::printShit;
 		ge->trackMemberKey(SDL_KEYDOWN, SDLK_UP, as1, mPek);
-
+		*/
 
 
 		ge->trackKeyState(SDL_SCANCODE_LEFT, leftFunc);
