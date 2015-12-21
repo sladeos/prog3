@@ -43,29 +43,25 @@ namespace gengine {
 					}
 				case SDL_KEYUP:
 				case SDL_KEYDOWN:
-					std::pair<std::map<SDL_Keycode, std::map<SDL_EventType, std::function<void(SDL_Event)>>>::iterator, std::map<SDL_Keycode, std::map<SDL_EventType, std::function<void(SDL_Event)>>>::iterator> ret;
-					ret = trackedKeys.equal_range(eve.key.keysym.sym);
-					if (ret.first->first == eve.key.keysym.sym) {
-						std::map<SDL_EventType, std::function<void(SDL_Event)>> test = ret.first->second;
-						for (auto iter : test) {
-							if (iter.first == eve.type) {
-								iter.second(eve);
-								
-							}
+					auto it = trackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
+					if (it != trackedKeys.end()) {
+						it->second();
+					}
 
-						}
+					auto iter = memberTrackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
+					if (iter != memberTrackedKeys.end()) {
+						iter->second();
 					}
 					; break;
 
-					
-					} // switch
-				} // inre while
-			
+
+				} // switch
+			} // inre while
+
 			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-			for (keyStateActions k : trackedKeyStates) {
-				if (currentKeyStates[k.key]) {
-					k.fPointer();
-				}
+			for (auto iter = trackedKeyStates.cbegin(); iter != trackedKeyStates.cend(); ++iter) {
+				if (currentKeyStates[iter->first])
+					iter->second();
 			}
 
 			SDL_RenderClear(ren);
@@ -82,7 +78,6 @@ namespace gengine {
 				removeSprite(s);
 			}
 			toBeRemoved.clear();
-
 
 		} // yttre while
 	}
@@ -105,20 +100,12 @@ namespace gengine {
 		sprite = NULL;
 	}
 
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void(SDL_Event)> func) {
-
-		std::map<char, int > chInt;
-		chInt.insert(std::pair<char, int>('a', 5));
-
-		std::map<SDL_EventType, std::function<void(SDL_Event)> > eveMap;
-		eveMap.insert(std::make_pair(eve, func));
-		trackedKeys.insert(std::make_pair(key, eveMap));
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void()> func) {
+		trackedKeys.insert(std::make_pair(std::make_pair(eve, key), func));
 	}
 
-	
-
-	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)()) {
-		trackedKeyStates.push_back(keyStateActions{ key, fPointer });
+	void GameEngine::trackKeyState(SDL_Scancode key, std::function<void(void)> func) {
+		trackedKeyStates.insert(std::make_pair(key, func));
 	}
 
 	void GameEngine::handleTextInput(TextSprite& tSprite) {
@@ -181,11 +168,7 @@ namespace gengine {
 		}//yttre while
 	}
 
-	/*void GameEngine::setMemberFunc(std::function<int(ActiveSprite)> memF)
-	{
-		memberFunc = memF;
-	}
-	*/
+
 	GameEngine::~GameEngine()
 	{
 		SDL_DestroyRenderer(ren);
