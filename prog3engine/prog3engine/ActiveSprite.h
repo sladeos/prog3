@@ -22,6 +22,7 @@ namespace gengine {
 		int getH() const;
 		void setXpath(int newX);
 		void setYpath(int newY);
+		void printShit();
 		void initSpriteSheet(int elementCount);
 		void addSpriteClip(int element, int x, int y, int w, int h);
 		virtual void actionCollision();

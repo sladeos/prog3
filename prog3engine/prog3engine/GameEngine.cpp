@@ -43,21 +43,25 @@ namespace gengine {
 					}
 				case SDL_KEYUP:
 				case SDL_KEYDOWN:
-				case SDL_MOUSEMOTION:
-				case SDL_MOUSEBUTTONUP:
-					for (inputActions k : trackedKeys) {
-						if (k.key == eve.key.keysym.sym && k.eve == eve.type) {
-							k.fPointer(eve);
-						}
-						; break;
-					} // switch
-				} // inre while
-			}
+					auto it = trackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
+					if (it != trackedKeys.end()) {
+						it->second();
+					}
+
+					auto iter = memberTrackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
+					if (iter != memberTrackedKeys.end()) {
+						iter->second();
+					}
+					; break;
+
+
+				} // switch
+			} // inre while
+
 			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-			for (keyStateActions k : trackedKeyStates) {
-				if (currentKeyStates[k.key]) {
-					k.fPointer();
-				}
+			for (auto iter = trackedKeyStates.cbegin(); iter != trackedKeyStates.cend(); ++iter) {
+				if (currentKeyStates[iter->first])
+					iter->second();
 			}
 
 			SDL_RenderClear(ren);
@@ -74,7 +78,6 @@ namespace gengine {
 				removeSprite(s);
 			}
 			toBeRemoved.clear();
-
 
 		} // yttre while
 	}
@@ -97,13 +100,12 @@ namespace gengine {
 		sprite = NULL;
 	}
 
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, void(*fPointer)(SDL_Event)) {
-		trackedKeys.push_back(inputActions{ eve, key, fPointer });
-
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void()> func) {
+		trackedKeys.insert(std::make_pair(std::make_pair(eve, key), func));
 	}
 
-	void GameEngine::trackKeyState(SDL_Scancode key, void(*fPointer)()) {
-		trackedKeyStates.push_back(keyStateActions{ key, fPointer });
+	void GameEngine::trackKeyState(SDL_Scancode key, std::function<void(void)> func) {
+		trackedKeyStates.insert(std::make_pair(key, func));
 	}
 
 	void GameEngine::handleTextInput(TextSprite& tSprite) {
@@ -165,6 +167,8 @@ namespace gengine {
 				SDL_Delay(delay);
 		}//yttre while
 	}
+
+
 	GameEngine::~GameEngine()
 	{
 		SDL_DestroyRenderer(ren);
