@@ -5,23 +5,28 @@
 
 namespace gengine {
 
+	
 	FixedSprite* FixedSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, std::string imgP) {
 		return new FixedSprite(eng, x, y, w, h, imgP);
 	}
 
+	//Perform on collision
 	void FixedSprite::actionCollision()
 	{
 		
 	}
 
+	//Constructor of Fixedsprite
 	FixedSprite::FixedSprite(GameEngine * eng, int x, int y, int w, int h, std::string imgP) : Sprite(eng, x, y, w, h, imgP) {
 		texture = IMG_LoadTexture(engine->getRen(), imgPath.c_str());
 	}
 
+	//Draw sprite
 	void FixedSprite::draw() {
 		SDL_RenderCopy(engine->getRen(), texture, NULL, &rect);
 	}
 
+	//Advance sprite by checking collision
 	void FixedSprite::tick(std::vector<Sprite*> sprites)
 	{
 		for (Sprite* s : sprites) {
@@ -33,6 +38,7 @@ namespace gengine {
 		}
 	}
 
+	//Destructor
 	FixedSprite::~FixedSprite()
 	{
 
