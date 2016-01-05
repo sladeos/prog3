@@ -26,6 +26,7 @@ namespace gengine {
 	//Initialize sprite sheet for sprites
 	void ActiveSprite::initSpriteSheet(int elementCount)
 	{
+		spriteSheetCount = elementCount;
 		rectSpriteArray = new SDL_Rect[elementCount];
 		spriteSheet = true;
 	}
@@ -42,6 +43,7 @@ namespace gengine {
 	//What to happen when collided with other sprite
 	void ActiveSprite::actionCollision()
 	{
+
 	}
 
 	//Activesprite constructor with initialization list
@@ -56,7 +58,7 @@ namespace gengine {
 		//If sprite sheet exists then use it 
 		if (spriteSheet) {
 			//IS THIS CORRECT? DOESNT THIS IMPLY 4 FRAMES ONLY?
-			if (frame == 4) {
+			if (frame == spriteSheetCount) {
 				frame = 0;
 			}
 
@@ -70,7 +72,7 @@ namespace gengine {
 			SDL_RenderCopy(engine->getRen(), texture, NULL, &rect);
 		}
 	}
-	
+
 	//Advance sprite using tick, check for collision and advance moving path.
 	void ActiveSprite::tick(std::vector<Sprite*> sprites) {
 		for (Sprite* s : sprites) {
@@ -80,6 +82,7 @@ namespace gengine {
 				}
 			}
 		}
+		tickAction();
 		x += xPath;
 		y += yPath;
 		rect = { getX(), getY(), getW(), getH() };

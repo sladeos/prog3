@@ -56,13 +56,14 @@ namespace gengine {
 					//Check for keys tracked to a function then execute
 					auto it = trackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
 					if (it != trackedKeys.end()) {
-						it->second(eve);
+						it->second();
 					}
 					//Check for keys tracked to a memberfunction then execute
 					auto iter = memberTrackedKeys.find(std::make_pair(eve.type, eve.key.keysym.sym));
 					if (iter != memberTrackedKeys.end()) {
-						iter->second(eve);
+						iter->second();
 					}
+
 					; break;
 
 
@@ -73,7 +74,7 @@ namespace gengine {
 			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 			for (auto iter = trackedKeyStates.cbegin(); iter != trackedKeyStates.cend(); ++iter) {
 				if (currentKeyStates[iter->first])
-					iter->second(eve);
+					iter->second();
 			}
 
 			//Clear renderer then advance sprites with tick, after done then draw sprites in new locations
@@ -88,26 +89,62 @@ namespace gengine {
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0)
 				SDL_Delay(delay);
+
+			//Loop through sprites to be removed and remove them, clear vector.
 			for (Sprite *s : toBeRemoved) {
 				removeSprite(s);
 			}
 			toBeRemoved.clear();
 
+			//If toBeLoaded vector is not empty the user wishes to load a level, set sprites vector to toBeLoaded.
+			if (!toBeLoaded.empty()) {
+				sprites = toBeLoaded;
+			}
+
 			for (std::function<void(void)> func : trackedEvents) {
 				func();
+			}
+
+			if (!trackKeyUnset.empty()) {
+				for (std::pair<Uint32, SDL_Keycode> pair : trackKeyUnset) {
+					trackedKeys.erase(pair);
+				}
+			}
+			if (!trackKeyStateUnset.empty()) {
+				for (SDL_Scancode code : trackKeyStateUnset) {
+					trackedKeyStates.erase(code);
+				}
+			}
+			if (!trackMemberKeyUnset.empty()) {
+				for (std::pair<Uint32, SDL_Keycode> pair : trackKeyUnset) {
+					memberTrackedKeys.erase(pair);
+				}
+			}
+
+			if (toUnsetTrackKey) {
+				trackedKeys.clear();
+			}
+
+			if (toUnsetTrackEvent) {
+				trackedEvents.clear();
+			}
+			if (toUnsetKeyState) {
+				trackedKeyStates.clear();
+			}
+			if (toUnsetTrackMemberKey) {
+				memberTrackedKeys.clear();
 			}
 		} // yttre while
 	}
 
-	//Load level (COMPLETE?)
+	//Loops through sprites vector, adds them to toBeRemoved vector, sets toBeLoaded vector to level sprites.
 	void GameEngine::loadLevel(Level *level)
 	{
 		for (Sprite* s : sprites) {
-			delete s;
+			toBeRemoved.push_back(s);
 		}
-		sprites.clear();
-		sprites = level->getSprites();
-		
+		toBeLoaded = level->getSprites();
+
 	}
 
 	//NOT USED?
@@ -128,12 +165,10 @@ namespace gengine {
 	//Remove sprite 
 	void  GameEngine::removeSprite(Sprite *sprite) {
 		sprites.erase(std::remove(sprites.begin(), sprites.end(), sprite), sprites.end());
-		delete sprite;
-		sprite = NULL;
 	}
 
 	//Function for adding tracking function to a key
-	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void(SDL_Event)> func) {
+	void GameEngine::trackKey(SDL_EventType eve, SDL_Keycode key, std::function<void()> func) {
 		trackedKeys.insert(std::make_pair(std::make_pair(eve, key), func));
 	}
 
@@ -144,7 +179,7 @@ namespace gengine {
 	}
 
 	//Function for adding tracking keystate
-	void GameEngine::trackKeyState(SDL_Scancode key, std::function<void(SDL_Event)> func) {
+	void GameEngine::trackKeyState(SDL_Scancode key, std::function<void()> func) {
 		trackedKeyStates.insert(std::make_pair(key, func));
 	}
 
@@ -214,6 +249,7 @@ namespace gengine {
 			delay = nextTick - SDL_GetTicks();
 			if (delay > 0)
 				SDL_Delay(delay);
+
 		}//yttre while
 	}
 
@@ -233,6 +269,34 @@ namespace gengine {
 	std::vector<Sprite*> GameEngine::getSprites() const
 	{
 		return sprites;
+	}
+	void gengine::GameEngine::unsetTrackKey(Uint32 event, SDL_Keycode keycode)
+	{
+		trackKeyUnset.push_back(std::make_pair(event, keycode));
+	}
+	void gengine::GameEngine::unsetTrackKeyState(SDL_Scancode scancode)
+	{
+		trackKeyStateUnset.push_back(scancode);
+	}
+	void gengine::GameEngine::unsetTrackMemberKey(Uint32 event, SDL_Keycode keycode)
+	{
+		trackMemberKeyUnset.push_back(std::make_pair(event, keycode));
+	}
+	void gengine::GameEngine::unsetAllTrackKey(bool)
+	{
+		toUnsetTrackKey = true;
+	}
+	void gengine::GameEngine::unsetAllTrackKeyState(bool)
+	{
+		toUnsetKeyState = true;
+	}
+	void gengine::GameEngine::unsetAllTrackMemberKey(bool)
+	{
+		toUnsetTrackMemberKey = true;
+	}
+	void gengine::GameEngine::unsetAllTrackEvent(bool)
+	{
+		toUnsetTrackEvent = true;
 	}
 	//Destructor
 	GameEngine::~GameEngine()

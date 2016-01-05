@@ -1,3 +1,4 @@
+/*
 #include <SDL.h>
 #undef main
 #include <stdexcept> 
@@ -13,33 +14,33 @@ using namespace gengine;
 
 ActiveSprite* as1;
 GameEngine* ge;
-void bitchtits1(SDL_Event e) {
+void bitchtits1() {
 	std::cout << "bitchtits1";
 }
 
 
-void leftFunc(SDL_Event e) {
+void leftFunc() {
 
 	int x = as1->getX();
 	as1->setX(x - 3);
 }
 
-void rightFunc(SDL_Event e) {
+void rightFunc() {
 	int x = as1->getX();
 	as1->setX(x + 3);
 }
 
-void upFunc(SDL_Event e) {
+void upFunc() {
 	int y = as1->getY();
 	as1->setY(y - 3);
 }
 
-void downFunc(SDL_Event e) {
+void downFunc() {
 	int y = as1->getY();
 	as1->setY(y + 3);
 }
 
-void loadALevel(SDL_Event e) {
+void loadALevel() {
 	ge->loadLevel(Level::getInstance(ge, "C:/Users/slade/Pictures/wut/1388836944945.jpg"));
 }
 
@@ -63,7 +64,7 @@ int main(int argc, char* argv[]) {
 
 
 		as1 = ActiveSprite::getInstance(ge, 100, 100, 200, 200, 0, 0, "C:/Users/slade/Pictures/wut/1406247020421.jpg");
-		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "C:/Users/slade/Pictures/wut/84081257.jpg");
+		ActiveSprite* baller = ActiveSprite::getInstance(ge, 400, 400, 200, 300, -1, 0, "C:/Users/slade/Pictures/wut/1381403796572.png");
 		
 
 		SDL_Color textColor = { 150, 133, 255, 255 };
@@ -86,12 +87,12 @@ int main(int argc, char* argv[]) {
 		ge->trackKey(SDL_KEYDOWN, SDLK_F7, loadALevel);
 
 		ge->trackEvent(checkLevel);
-		/*
+		
 		Member Pointer register
 		void(ActiveSprite::*mPek)();
 		mPek = &ActiveSprite::printShit;
 		ge->trackMemberKey(SDL_KEYDOWN, SDLK_UP, as1, mPek);
-		*/
+		
 
 
 		ge->trackKeyState(SDL_SCANCODE_LEFT, leftFunc);
@@ -102,16 +103,15 @@ int main(int argc, char* argv[]) {
 
 
 		baller->initSpriteSheet(4);
-		baller->addSpriteClip(0, 0, 0, 64, 205);
-		baller->addSpriteClip(1, 64, 0, 64, 205);
-		baller->addSpriteClip(2, 128, 0, 64, 205);
-		baller->addSpriteClip(3, 196, 0, 64, 205);
+		baller->addSpriteClip(0, 0, 0, 200, 205);
+		baller->addSpriteClip(1, 64, 0, 200, 205);
+		baller->addSpriteClip(2, 128, 0, 200, 205);
+		baller->addSpriteClip(3, 196, 0, 200, 205);
 
 
 
 		ge->run();
-		delete baller;
-		delete as1;
+		
 		delete ge;
 
 
@@ -122,3 +122,4 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
+*/
