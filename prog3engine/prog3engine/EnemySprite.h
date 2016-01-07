@@ -14,6 +14,7 @@ public:
 	~EnemySprite();
 private:
 	EnemySprite(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
+	static int groupY, groupXpath;
 };
 
 #endif

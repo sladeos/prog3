@@ -28,6 +28,7 @@ namespace gengine {
 		void handleTextInput(TextSprite&);
 		const int getW() const;
 		const int getH() const;
+		int getFrame() const;
 		std::vector<Sprite*> getSprites() const;
 		void unsetTrackKey(Uint32, SDL_Keycode);
 		void unsetTrackKeyState(SDL_Scancode);
@@ -49,7 +50,7 @@ namespace gengine {
 		std::map<std::pair<Uint32, SDL_Keycode>, std::function<void()>> trackedKeys;
 		std::map<std::pair<Uint32, SDL_Keycode>, std::function<void()>> memberTrackedKeys;
 		std::map<SDL_Scancode, std::function<void()>> trackedKeyStates;
-		int frameRate;
+		int frameRate, frame = 0;
 		const int w, h;
 		bool toUnsetTrackKey = false, toUnsetTrackEvent = false, toUnsetKeyState = false, toUnsetTrackMemberKey = false;
 		std::vector<std::pair<Uint32, SDL_Keycode>> trackKeyUnset, trackMemberKeyUnset;

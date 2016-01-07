@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL.h>
 #include <vector>
+#include "iostream"
 
 namespace gengine {
 	class ActiveSprite : public Sprite
@@ -24,7 +25,7 @@ namespace gengine {
 		void setYpath(int newY);
 		void initSpriteSheet(int elementCount);
 		void addSpriteClip(int element, int x, int y, int w, int h);
-		virtual void tickAction() {};
+		virtual void tickAction() { };
 		virtual void actionCollision();
 	protected:
 		SDL_Texture* texture;

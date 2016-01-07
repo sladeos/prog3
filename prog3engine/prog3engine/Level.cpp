@@ -10,7 +10,7 @@ namespace gengine {
 
 	Level::Level(GameEngine *eng, std::string imgPath)
 	{
-		background = FixedSprite::getInstance(eng, 0, 0, eng->getW(), eng->getH(), imgPath);
+		background = FixedSprite::getInstance(eng, 0, 0, eng->getW(), eng->getH(), imgPath, true);
 		sprites.push_back(background);
 	}
 

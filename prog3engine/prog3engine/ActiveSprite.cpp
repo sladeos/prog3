@@ -3,7 +3,7 @@
 #include "SDL_image.h"
 #include <string>
 #include <SDL.h>
-#include<iostream>
+#include <iostream>
 namespace gengine {
 
 	ActiveSprite* ActiveSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP)
@@ -47,8 +47,9 @@ namespace gengine {
 	}
 
 	//Activesprite constructor with initialization list
-	ActiveSprite::ActiveSprite(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP) : Sprite(eng, x, y, w, h, imgP), x(x), y(y), w(w), h(h), xPath(pathX), yPath(pathY)
+	ActiveSprite::ActiveSprite(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP) : Sprite(eng, x, y, w, h, imgP, false), x(x), y(y), w(w), h(h), xPath(pathX), yPath(pathY)
 	{
+		
 		texture = IMG_LoadTexture(engine->getRen(), imgPath.c_str());
 	}
 
@@ -57,18 +58,18 @@ namespace gengine {
 	{
 		//If sprite sheet exists then use it 
 		if (spriteSheet) {
-			//IS THIS CORRECT? DOESNT THIS IMPLY 4 FRAMES ONLY?
+			
 			if (frame == spriteSheetCount) {
 				frame = 0;
 			}
 
 			SDL_Rect* currentClip = &rectSpriteArray[frame];
 			frame++;
-
 			SDL_RenderCopy(engine->getRen(), texture, currentClip, &rect);
 		}
 		//Else draw without spritesheet
 		else {
+
 			SDL_RenderCopy(engine->getRen(), texture, NULL, &rect);
 		}
 	}
@@ -76,12 +77,13 @@ namespace gengine {
 	//Advance sprite using tick, check for collision and advance moving path.
 	void ActiveSprite::tick(std::vector<Sprite*> sprites) {
 		for (Sprite* s : sprites) {
-			if (s != this) {
+			if (s != this && s->isBackground==false) {
 				if (checkCollision(&s->rect)) {
 					actionCollision();
 				}
 			}
 		}
+		
 		tickAction();
 		x += xPath;
 		y += yPath;

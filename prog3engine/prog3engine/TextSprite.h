@@ -11,7 +11,7 @@ namespace gengine {
 	class TextSprite : public Sprite
 	{
 	public:
-		static TextSprite* getInstance(GameEngine* eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable);
+		static TextSprite* getInstance(GameEngine* eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable, bool isBackground);
 		void setText(std::string newText);
 		std::string getText() const;
 		void draw();
@@ -24,7 +24,7 @@ namespace gengine {
 		TTF_Font *font;
 		int x, y, w, h;
 		std::string text;
-		TextSprite(GameEngine* eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable);
+		TextSprite(GameEngine* eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable, bool isBackground);
 	private:
 		bool editable;
 	};

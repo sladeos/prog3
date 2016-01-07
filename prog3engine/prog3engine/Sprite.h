@@ -12,12 +12,13 @@ namespace gengine {
 	class Sprite
 	{
 	public:
+		const bool isBackground;
 		virtual void draw() = 0;
 		virtual void tick(std::vector<Sprite*>) {}
 		virtual ~Sprite();
 		virtual SDL_Rect getRect()const;
 	protected:
-		Sprite(GameEngine* eng, int x, int y, int w, int h, std::string imgP);
+		Sprite(GameEngine* eng, int x, int y, int w, int h, std::string imgP, bool isBackground);
 		SDL_Rect rect;
 		GameEngine* engine;
 		std::string imgPath;

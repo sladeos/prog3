@@ -3,7 +3,7 @@
 
 namespace gengine {
 	//Constructor with initialization list
-	Sprite::Sprite(GameEngine * eng, int x, int y, int w, int h, std::string imgP) :engine(eng), rect{ x,y,w,h }, imgPath(imgP)
+	Sprite::Sprite(GameEngine * eng, int x, int y, int w, int h, std::string imgP, bool isBackground) :engine(eng), rect{ x,y,w,h }, imgPath(imgP), isBackground(isBackground)
 	{
 	
 	}

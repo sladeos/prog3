@@ -25,7 +25,6 @@ namespace gengine {
 			s->draw();
 		SDL_RenderPresent(ren);
 		bool goOn = true;
-		int frame = 0;
 		const int tickInterval = 1000 / frameRate;
 		Uint32 nextTick;
 		int delay;
@@ -99,6 +98,7 @@ namespace gengine {
 			//If toBeLoaded vector is not empty the user wishes to load a level, set sprites vector to toBeLoaded.
 			if (!toBeLoaded.empty()) {
 				sprites = toBeLoaded;
+				toBeLoaded.clear();
 			}
 
 			for (std::function<void(void)> func : trackedEvents) {
@@ -134,7 +134,9 @@ namespace gengine {
 			if (toUnsetTrackMemberKey) {
 				memberTrackedKeys.clear();
 			}
+			frame++;
 		} // yttre while
+
 	}
 
 	//Loops through sprites vector, adds them to toBeRemoved vector, sets toBeLoaded vector to level sprites.
@@ -190,7 +192,6 @@ namespace gengine {
 		bool quit = false;
 		SDL_Event e;
 		std::string inputText = tSprite.getText();
-		int frame = 0;
 		const int tickInterval = 1000 / frameRate;
 		Uint32 nextTick;
 		int delay;
@@ -250,6 +251,7 @@ namespace gengine {
 			if (delay > 0)
 				SDL_Delay(delay);
 
+			
 		}//yttre while
 	}
 
@@ -263,6 +265,11 @@ namespace gengine {
 	const int GameEngine::getH() const
 	{
 		return h;
+	}
+
+	int GameEngine::getFrame() const
+	{
+		return frame;
 	}
 
 	//Return vector containing sprites
