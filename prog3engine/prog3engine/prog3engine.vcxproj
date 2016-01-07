@@ -69,20 +69,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\vs_dev_lib\SDL2-2.0.3\include;C:\vs_dev_lib\SDL2_image-2.0.0\include;C:\vs_dev_lib\SDL2_mixer-2.0.0\include;C:\vs_dev_lib\SDL2_ttf-2.0.12\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\vs_dev_lib\SDL2-2.0.3\lib\x86;C:\vs_dev_lib\SDL2_image-2.0.0\lib\x86;C:\vs_dev_lib\SDL2_mixer-2.0.0\lib\x86;C:\vs_dev_lib\SDL2_ttf-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Sebbe\Documents\Visual Studio 2015\Projects\prog3\prog3engine\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Sebbe\Documents\Visual Studio 2015\Projects\prog3\prog3engine\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\SDL2-devel-2.0.3-VC\SDL2_image-2.0.0\include;C:\SDL2-devel-2.0.3-VC\SDL2_ttf-2.0.12\include;C:\SDL2-devel-2.0.3-VC\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Sebbe\Documents\Visual Studio 2015\Projects\prog3\prog3engine\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\SDL2-devel-2.0.3-VC\SDL2_image-2.0.0\lib\x86;C:\SDL2-devel-2.0.3-VC\SDL2_ttf-2.0.12\lib\x86;C:\SDL2-devel-2.0.3-VC\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Sebbe\Documents\Visual Studio 2015\Projects\prog3\prog3engine\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2_image.lib;SDL2_ttf.lib;SDL2.lib;SDL2main.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -126,19 +126,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActiveSprite.h" />
+    <ClInclude Include="EnemySprite.h" />
     <ClInclude Include="FixedSprite.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="LaserSprite.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="PlayerSprite.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TextSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActiveSprite.cpp" />
+    <ClCompile Include="EnemySprite.cpp" />
     <ClCompile Include="FixedSprite.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="LaserSprite.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PlayerSprite.cpp" />
+    <ClCompile Include="SpaceInvaders.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TextSprite.cpp" />
