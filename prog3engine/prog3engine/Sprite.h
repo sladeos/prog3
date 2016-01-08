@@ -23,7 +23,7 @@ namespace gengine {
 		GameEngine* engine;
 		std::string imgPath;
 		bool const checkCollision(SDL_Rect* otherRect);
-		virtual void actionCollision() {}
+		virtual void actionCollision(Sprite* s) {}
 	private:
 		friend class FixedSprite;
 		friend class ActiveSprite;

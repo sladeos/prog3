@@ -3,6 +3,8 @@
 #include <SDL_image.h>
 #include "GameEngine.h"
 #include <iostream>
+#include "LaserSprite.h"
+#include "PlayerSprite.h"
 namespace gengine {
 
 	int EnemySprite::groupY, EnemySprite::groupXpath;
@@ -20,9 +22,18 @@ namespace gengine {
 		return new EnemySprite(eng, x, y, w, h, pathX, pathY, imgP);
 	}
 
-	void EnemySprite::actionCollision()
+	void EnemySprite::actionCollision(Sprite *s)
 	{
-		engine->addRemoveSprite(this);
+		if (LaserSprite* enemy = dynamic_cast<LaserSprite*>(s)) {
+			engine->addRemoveSprite(this);
+		}
+		else if (PlayerSprite* enemy = dynamic_cast<PlayerSprite*>(s)) {
+			Level *gameOver = Level::getInstance(engine, "C:/images/gameOver.png");
+			engine->unsetAllTrackEvent();
+			engine->loadLevel(gameOver);
+		}
+
+
 	}
 
 	void EnemySprite::tickAction()
@@ -41,12 +52,12 @@ namespace gengine {
 		}
 
 		if (xPath > 0 && x >= engine->getW() - 60) {
-			groupXpath = -5;
+			groupXpath = -1;
 			groupY += 50;
 
 		}
 		else if (xPath < 0 && x <= 20) {
-			groupXpath = 5;
+			groupXpath = 1;
 			xPath = groupXpath;
 			groupY += 50;
 			y = groupY;
@@ -57,8 +68,5 @@ namespace gengine {
 
 	EnemySprite::~EnemySprite()
 	{
-
-		delete rectSpriteArray;
-		SDL_DestroyTexture(texture);
 	}
 }

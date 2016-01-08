@@ -41,9 +41,9 @@ namespace gengine {
 	}
 
 	//What to happen when collided with other sprite
-	void ActiveSprite::actionCollision()
+	void ActiveSprite::actionCollision(Sprite *s)
 	{
-
+	
 	}
 
 	//Activesprite constructor with initialization list
@@ -69,7 +69,6 @@ namespace gengine {
 		}
 		//Else draw without spritesheet
 		else {
-
 			SDL_RenderCopy(engine->getRen(), texture, NULL, &rect);
 		}
 	}
@@ -79,7 +78,7 @@ namespace gengine {
 		for (Sprite* s : sprites) {
 			if (s != this && s->isBackground==false) {
 				if (checkCollision(&s->rect)) {
-					actionCollision();
+					actionCollision(s);
 				}
 			}
 		}
@@ -124,9 +123,8 @@ namespace gengine {
 	//Destructor
 	ActiveSprite::~ActiveSprite()
 	{
-
-		delete rectSpriteArray;
 		SDL_DestroyTexture(texture);
+		delete rectSpriteArray;
 	}
 
 }

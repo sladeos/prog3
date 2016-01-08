@@ -11,7 +11,7 @@ namespace gengine {
 	}
 
 	//Perform on collision
-	void FixedSprite::actionCollision()
+	void FixedSprite::actionCollision(Sprite* s)
 	{
 		
 	}
@@ -32,7 +32,7 @@ namespace gengine {
 		for (Sprite* s : sprites) {
 			if (s != this) {
 				if (checkCollision(&s->rect)) {
-					actionCollision();
+					actionCollision(s);
 				}
 			}
 		}

@@ -12,7 +12,7 @@ namespace gengine {
 	{
 	public:
 		static ActiveSprite* getInstance(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
-		~ActiveSprite();
+		virtual ~ActiveSprite();
 		void draw();
 		void tick(std::vector <Sprite*>);
 		int getX() const;
@@ -26,7 +26,7 @@ namespace gengine {
 		void initSpriteSheet(int elementCount);
 		void addSpriteClip(int element, int x, int y, int w, int h);
 		virtual void tickAction() { };
-		virtual void actionCollision();
+		virtual void actionCollision(Sprite* s);
 	protected:
 		SDL_Texture* texture;
 		int x, y, w, h, xPath, yPath;

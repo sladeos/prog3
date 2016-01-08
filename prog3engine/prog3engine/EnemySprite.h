@@ -9,7 +9,7 @@ namespace gengine {
 
 	public:
 		static EnemySprite* getInstance(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
-		void actionCollision();
+		void actionCollision(Sprite *s);
 		void tickAction();
 		~EnemySprite();
 	private:
