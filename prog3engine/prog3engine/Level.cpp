@@ -10,7 +10,7 @@ namespace gengine {
 
 	Level::Level(GameEngine *eng, std::string imgPath)
 	{
-		background = FixedSprite::getInstance(eng, 0, 0, eng->getW(), eng->getH(), imgPath);
+		background = FixedSprite::getInstance(eng, 0, 0, eng->getW(), eng->getH(), imgPath, true);
 		sprites.push_back(background);
 	}
 
@@ -20,7 +20,6 @@ namespace gengine {
 	}
 
 
-	//Kan bli fel. What is 
 	void gengine::Level::addSprites(std::vector<Sprite*> spritesToLoad)
 	{
 		sprites.insert(sprites.end(), spritesToLoad.begin(), spritesToLoad.end());
@@ -39,10 +38,9 @@ namespace gengine {
 
 	}
 
-
-
 	std::vector<Sprite*> Level::getSprites() const
 	{
+		
 		return sprites;
 	}
 
@@ -56,7 +54,8 @@ namespace gengine {
 
 	Level::~Level()
 	{
-		delete background;
 		deleteObjects();
+		delete background;
+	
 	}
 }

@@ -6,8 +6,8 @@
 namespace gengine {
 
 	
-	FixedSprite* FixedSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, std::string imgP) {
-		return new FixedSprite(eng, x, y, w, h, imgP);
+	FixedSprite* FixedSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, std::string imgP, bool isBackground) {
+		return new FixedSprite(eng, x, y, w, h, imgP, isBackground);
 	}
 
 	//Perform on collision
@@ -17,7 +17,7 @@ namespace gengine {
 	}
 
 	//Constructor of Fixedsprite
-	FixedSprite::FixedSprite(GameEngine * eng, int x, int y, int w, int h, std::string imgP) : Sprite(eng, x, y, w, h, imgP) {
+	FixedSprite::FixedSprite(GameEngine * eng, int x, int y, int w, int h, std::string imgP, bool isBackground) : Sprite(eng, x, y, w, h, imgP, isBackground) {
 		texture = IMG_LoadTexture(engine->getRen(), imgPath.c_str());
 	}
 

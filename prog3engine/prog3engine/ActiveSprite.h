@@ -5,6 +5,7 @@
 #include <string>
 #include <SDL.h>
 #include <vector>
+#include "iostream"
 
 namespace gengine {
 	class ActiveSprite : public Sprite
@@ -24,12 +25,13 @@ namespace gengine {
 		void setYpath(int newY);
 		void initSpriteSheet(int elementCount);
 		void addSpriteClip(int element, int x, int y, int w, int h);
+		virtual void tickAction() { };
 		virtual void actionCollision();
 	protected:
 		SDL_Texture* texture;
 		int x, y, w, h, xPath, yPath;
 		SDL_Rect* rectSpriteArray;
-		int frame;
+		int frame, spriteSheetCount;
 		bool spriteSheet = false;
 		ActiveSprite(GameEngine* eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP);
 	private:

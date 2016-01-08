@@ -7,13 +7,13 @@
 
 namespace gengine {
 
-	TextSprite * TextSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable)
+	TextSprite * TextSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable, bool isBackground)
 	{
-		return new TextSprite(eng, x, y, w, h, color, font, text, editable);
+		return new TextSprite(eng, x, y, w, h, color, font, text, editable, isBackground);
 	}
 
 	//Constructor with initialization list
-	TextSprite::TextSprite(GameEngine * eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable) : Sprite(eng, x, y, w, h, text), x(x), y(y), w(w), h(h), color(color), font(font), text(text), editable(editable)
+	TextSprite::TextSprite(GameEngine * eng, int x, int y, int w, int h, SDL_Color color, TTF_Font *font, std::string text, bool editable, bool isBackground) : Sprite(eng, x, y, w, h, text, isBackground), x(x), y(y), w(w), h(h), color(color), font(font), text(text), editable(editable)
 	{
 		SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
 		texture = SDL_CreateTextureFromSurface(engine->getRen(), textSurface);
