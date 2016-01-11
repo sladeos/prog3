@@ -106,11 +106,12 @@ namespace gengine {
 				sprites = toBeLoaded;
 				toBeLoaded.clear();
 			}
+			removalOfTrackedKeys();
 
 			for (std::function<void(void)> func : trackedEvents) {
 				func();
 			}
-			removalOfTrackedKeys();
+
 			frame++;
 		} // yttre while
 
@@ -121,7 +122,7 @@ namespace gengine {
 	{
 		toBeLoaded = level->getSprites();
 		removalOfTrackedKeys();
-
+		
 	}
 
 	//NOT USED?
@@ -159,13 +160,13 @@ namespace gengine {
 			for (SDL_Scancode code : trackKeyStateUnset) {
 				trackedKeyStates.erase(code);
 			}
-			trackKeyUnset.clear();
+			trackKeyStateUnset.clear();
 		}
 		if (!trackMemberKeyUnset.empty()) {
-			for (std::pair<Uint32, SDL_Keycode> pair : trackKeyUnset) {
+			for (std::pair<Uint32, SDL_Keycode> pair : trackMemberKeyUnset) {
 				memberTrackedKeys.erase(pair);
 			}
-			trackKeyUnset.clear();
+			trackMemberKeyUnset.clear();
 		}
 
 		if (toUnsetTrackKey) {

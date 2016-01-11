@@ -5,6 +5,7 @@
 #include <iostream>
 #include "LaserSprite.h"
 #include "PlayerSprite.h"
+
 namespace gengine {
 
 	int EnemySprite::groupY, EnemySprite::groupXpath;
@@ -28,12 +29,13 @@ namespace gengine {
 			engine->addRemoveSprite(this);
 		}
 		else if (PlayerSprite* enemy = dynamic_cast<PlayerSprite*>(s)) {
-			Level *gameOver = Level::getInstance(engine, "C:/images/gameOver.png");
-			engine->unsetAllTrackEvent();
-			engine->loadLevel(gameOver);
+			actionFunction();
 		}
+	}
 
-
+	void EnemySprite::setActionFunction(std::function<void(void)> actionFunc)
+	{
+		actionFunction = actionFunc;
 	}
 
 	void EnemySprite::tickAction()
