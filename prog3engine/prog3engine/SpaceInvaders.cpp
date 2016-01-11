@@ -80,11 +80,15 @@ void loadFirstLevel() {
 	for (int x = 0; x <= 6; x++) {
 		EnemySprite *enemy = EnemySprite::getInstance(ge, xStart, y, 30, 30, 1, 0, "images/invaders.png");
 		enemy->setActionFunction(lostGame);
-		enemy->initSpriteSheet(4);
-		enemy->addSpriteClip(0, 40, 30, 64, 64);
-		enemy->addSpriteClip(1, 40, 30, 64, 64);
-		enemy->addSpriteClip(2, 142, 31, 64, 64);
-		enemy->addSpriteClip(3, 142, 31, 64, 64);
+		enemy->initSpriteSheet(32);
+		for (int i = 15; i >= 0; --i) {
+
+		enemy->addSpriteClip(i, 40, 30, 64, 64);
+		}
+		for (int i = 31; i >= 16; --i) {
+			enemy->addSpriteClip(i, 142, 31, 64, 64);
+		}
+
 		firstLevel->addSprite(enemy);
 		xStart += 40;
 	}
