@@ -92,14 +92,12 @@ namespace gengine {
 
 			//Loop through sprites to be removed and remove them, clear vector.
 			for (Sprite *s : toBeRemoved) {
-				std::cout << "Deleting a sprite ";
 				removeSprite(s);
 			}
 			toBeRemoved.clear();
 
 			//If toBeLoaded vector is not empty the user wishes to load a level, set sprites vector to toBeLoaded.
 			if (!toBeLoaded.empty()) {
-				std::cout << "toBeLoaded not Empty ";
 				for (Sprite* sprite : sprites) {
 					toBeRemoved.push_back(sprite);
 				}
@@ -156,7 +154,6 @@ namespace gengine {
 
 		}
 		if (!trackKeyStateUnset.empty()) {
-			std::cout << "Unsetting trackKeyState";
 			for (SDL_Scancode code : trackKeyStateUnset) {
 				trackedKeyStates.erase(code);
 			}

@@ -41,7 +41,6 @@ namespace gengine {
 	void EnemySprite::tickAction()
 	{
 		if (y >= 650) {
-			std::cout << "REACH";
 			Level *love = Level::getInstance(engine, "C:/images/background1.png");
 			engine->loadLevel(love);
 		}
