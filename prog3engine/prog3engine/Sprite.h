@@ -12,7 +12,6 @@ namespace gengine {
 	class Sprite
 	{
 	public:
-		const bool isBackground;
 		virtual void draw() = 0;
 		virtual void tick(std::vector<Sprite*>) {}
 		virtual ~Sprite();
@@ -23,7 +22,8 @@ namespace gengine {
 		GameEngine* engine;
 		std::string imgPath;
 		bool const checkCollision(SDL_Rect* otherRect);
-		virtual void actionCollision() {}
+		virtual void actionCollision(Sprite* s) {}
+		const bool isBackground;
 	private:
 		friend class FixedSprite;
 		friend class ActiveSprite;

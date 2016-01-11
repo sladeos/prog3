@@ -34,20 +34,22 @@ namespace gengine {
 		void unsetTrackKeyState(SDL_Scancode);
 		void unsetTrackMemberKey(Uint32, SDL_Keycode);
 
-		void unsetAllTrackKey(bool);
-		void unsetAllTrackKeyState(bool);
-		void unsetAllTrackMemberKey(bool);
-		void unsetAllTrackEvent(bool);
+		void unsetAllTrackKey();
+		void unsetAllTrackKeyState();
+		void unsetAllTrackMemberKey();
+		void unsetAllTrackEvent();
 
 		~GameEngine();
 	private:
 		void removeSprite(Sprite*);
+		void removalOfTrackedKeys();
 		friend class Sprite;
 		SDL_Window* win;
 		SDL_Renderer* ren;
 		std::vector<Sprite*> sprites, toBeRemoved, toBeLoaded;
 		std::vector <std::function<void(void)>> trackedEvents;
 		std::map<std::pair<Uint32, SDL_Keycode>, std::function<void()>> trackedKeys;
+
 		std::map<std::pair<Uint32, SDL_Keycode>, std::function<void()>> memberTrackedKeys;
 		std::map<SDL_Scancode, std::function<void()>> trackedKeyStates;
 		int frameRate, frame = 0;

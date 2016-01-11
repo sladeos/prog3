@@ -17,7 +17,7 @@ namespace gengine {
 		return new PlayerSprite(eng, x, y, w, h, pathX, pathY, imgP);
 	}
 
-	void PlayerSprite::actionCollision()
+	void PlayerSprite::actionCollision(Sprite *s)
 	{
 
 	}
@@ -27,12 +27,13 @@ namespace gengine {
 		if (x < 0) {
 			x = 0;
 		}
-		else if (x>engine->getW()) {
-			x = engine->getW();
+		else if (x > engine->getW() - 100) {
+			x = engine->getW() - 100;
 		}
 
 	}
 	PlayerSprite::~PlayerSprite()
 	{
+		SDL_DestroyTexture(texture);
 	}
 }

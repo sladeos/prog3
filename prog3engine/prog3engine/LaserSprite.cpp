@@ -5,7 +5,8 @@
 #include <iostream>
 
 namespace gengine {
-	LaserSprite::LaserSprite(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP) :ActiveSprite(eng, x, y, w, h, pathX, pathY, imgP)
+	int LaserSprite::instances = 0;
+	LaserSprite::LaserSprite(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP) : ActiveSprite(eng, x, y, w, h, pathX, pathY, imgP)
 	{
 		texture = IMG_LoadTexture(eng->getRen(), imgPath.c_str());
 
@@ -13,10 +14,17 @@ namespace gengine {
 
 	LaserSprite * LaserSprite::getInstance(GameEngine * eng, int x, int y, int w, int h, int pathX, int pathY, std::string imgP)
 	{
+		if(instances == 0){
+			++instances;
 		return new LaserSprite(eng, x, y, w, h, pathX, pathY, imgP);
+		
+		}
+		else{
+			return nullptr;
+		}
 	}
 
-	void LaserSprite::actionCollision()
+	void LaserSprite::actionCollision(Sprite *s)
 	{
 		engine->addRemoveSprite(this);
 	}
@@ -32,5 +40,7 @@ namespace gengine {
 
 	LaserSprite::~LaserSprite()
 	{
+		SDL_DestroyTexture(texture);
+		--instances;
 	}
 }
