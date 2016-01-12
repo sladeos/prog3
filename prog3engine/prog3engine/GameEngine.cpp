@@ -104,6 +104,7 @@ namespace gengine {
 				sprites = toBeLoaded;
 				toBeLoaded.clear();
 			}
+			//Function for removing tracked keys
 			removalOfTrackedKeys();
 
 			for (std::function<void(void)> func : trackedEvents) {
@@ -144,6 +145,7 @@ namespace gengine {
 		delete sprite;
 	}
 
+	//Function that triggers the removal of all keys that have been set for removal
 	void gengine::GameEngine::removalOfTrackedKeys()
 	{
 		if (!trackKeyUnset.empty()) {
@@ -283,6 +285,7 @@ namespace gengine {
 		return h;
 	}
 
+	//Gets the current frame
 	int GameEngine::getFrame() const
 	{
 		return frame;
@@ -293,6 +296,8 @@ namespace gengine {
 	{
 		return sprites;
 	}
+
+	//Functions for removal of tracked keys
 	void gengine::GameEngine::unsetTrackKey(Uint32 event, SDL_Keycode keycode)
 	{
 

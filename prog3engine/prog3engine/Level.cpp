@@ -8,6 +8,7 @@ namespace gengine {
 		return new Level(eng, imgPath);
 	}
 
+	//Constructor
 	Level::Level(GameEngine *eng, std::string imgPath)
 	{
 		background = FixedSprite::getInstance(eng, 0, 0, eng->getW(), eng->getH(), imgPath, true);
