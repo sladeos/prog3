@@ -46,11 +46,7 @@ namespace gengine {
 	//What will happen on each tick
 	void EnemySprite::tickAction()
 	{
-		//REMOVE THIS ? 
-		if (y >= 650) {
-			Level *love = Level::getInstance(engine, "C:/images/background1.png");
-			engine->loadLevel(love);
-		}
+		
 		//If this sprite is not aligned with group on Y dimension, then align it.
 		if (y != groupY) {
 			y = groupY;

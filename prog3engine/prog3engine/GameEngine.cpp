@@ -124,7 +124,7 @@ namespace gengine {
 		
 	}
 
-	//NOT USED?
+	//Set FPS
 	void GameEngine::setFPS(int newFPS) {
 		frameRate = newFPS;
 	}
