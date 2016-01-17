@@ -92,6 +92,7 @@ void lostGame() {
 //This function loads the first level along with the enemies and player. It also tracks the keys to moving functions
 void loadFirstLevel() {
 	//Removes the tracking of loading this level
+	ge->unsetTrackKey(SDL_KEYDOWN, SDLK_n);
 	ge->unsetTrackKey(SDL_KEYDOWN, SDLK_SPACE);
 	firstLevel = Level::getInstance(ge, "images/background.jpg");
 
